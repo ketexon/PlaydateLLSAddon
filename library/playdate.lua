@@ -1,9 +1,59 @@
---@meta
+---@meta
 
--- This file contains function stubs for autocompletion. DO NOT include it in your game.
+--[[
+	# 6.1. Playdate SDK Lua enhancements
+	## Table additions
+	The Playdate SDK offers some convenience functions for handling Lua tables, beyond what is available in Lua itself:
+--]]
 
+
+---Returns the first index of element in the given array-style table. If the table does not contain element, the function returns nil.
+---@param table table
+---@param element any
+function table.indexOfElement(table, element) end
+
+---Returns the size of the given table as multiple values (arrayCount, hashCount).
+---@param table table
+---@return number arrayCount, number hashCOunt
+function table.getsize(table) end
+
+---Returns a new Lua table with the array and hash parts preallocated to accommodate arrayCount and hashCount elements respectively.
+---## Tip
+---If you can make a decent estimation of how big your table will need to be, table.create() can be much more efficient than the alternative, especially in loops. For example, if you know your array is always going to contain approximately ten elements, say myArray = table.create( 10, 0 ) instead of myArray = {}.
+---@param arrayCount number
+---@param hashCount number
+---@return table
+function table.create(arrayCount, hashCount) end
+
+---`shallowCopy` returns a shallow copy of the *source* table. If a destination table is provided, it copies the contents of source into destination and returns destination. The copy will contain references to any nested tables.
+---@param source table
+---@param destination? table
+---@return table
+function table.shallowcopy(source, destination) end
+
+---`deepCopy` returns a deep copy of the *source* table. The copy will contain copies of any nested tables.
+---@param source table
+---@return table
+function table.deepcopy(source) end
+
+
+--[[
+	# 6.2. System and Game Metadata
+--]]
+
+---Returns two values, the current API version of the Playdate runtime and the minimum API version supported by the runtime.
+---@return number current, number minimum
 function playdate.apiVersion() end
+
+---The playdate.metadata table contains the values in the current game’s pdxinfo file, keyed by variable name. To retrieve the version number of the game, for example, you would use playdate.metadata.version.
+---
+---Changing values in this table at run time has no effect.
+---@return table metadata
 function playdate.metadata() end
+
+--[[
+
+--]]
 function playdate.wait(milliseconds) end
 function playdate.stop() end
 function playdate.start() end
@@ -294,8 +344,8 @@ function playdate.graphics.fillTriangle(x1, y1, x2, y2, x3, y3) end
 function playdate.graphics.nineSlice.getSize() end
 function playdate.graphics.nineSlice.getMinSize() end
 function playdate.graphics.nineSlice.drawInRect(x, y, width, height) end
-function playdate.graphics.perlin(x, y, z, _repeat, octaves, persistence) end
-function playdate.graphics.perlinArray(count, x, dx, y, dy, z, dz, _repeat, octaves, persistence) end
+function playdate.graphics.perlin(x, y, z, repeat, octaves, persistence) end
+function playdate.graphics.perlinArray(count, x, dx, y, dy, z, dz, repeat, octaves, persistence) end
 function playdate.graphics.generateQRCode(stringToEncode, desiredEdgeDimension, callback) end
 function playdate.graphics.drawSineWave(startX, startY, endX, endY, startAmplitude, endAmplitude, period, phaseShift) end
 function playdate.graphics.setClipRect(x, y, width, height) end
@@ -304,7 +354,20 @@ function playdate.graphics.setScreenClipRect(x, y, width, height) end
 function playdate.graphics.getScreenClipRect() end
 function playdate.graphics.clearClipRect() end
 function playdate.graphics.setStencilImage(image, tile) end
-function playdate.graphics.setStencilPattern({ row1, row2, row3, row4, row5, row6, row7, row8 }) end
+
+---@param rows integer[]
+function playdate.graphics.setStencilPattern(rows) end
+
+---@param row1 integer
+---@param row2 integer
+---@param row3 integer
+---@param row4 integer
+---@param row5 integer
+---@param row6 integer
+---@param row7 integer
+---@param row8 integer
+function playdate.graphics.setStencilPattern(row1, row2, row3, row4, row5, row6, row7, row8) end
+
 function playdate.graphics.clearStencil() end
 function playdate.graphics.clearStencilImage() end
 function playdate.graphics.setImageDrawMode(mode) end
