@@ -1,0 +1,10 @@
+{
+    "name"   : "Playdate",
+    "words"  : ["playdate%.%w+"],
+    "settings" : {
+        "Lua.runtime.version" : "Lua 5.4",
+        "Lua.runtime.special": {
+			"import": "require"
+		}
+    }
+}
